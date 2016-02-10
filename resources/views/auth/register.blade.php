@@ -42,6 +42,5 @@
 		<li>{{ $error }}</li>
 	@endforeach
 </ul>	
-	
 @endif
 @endsection

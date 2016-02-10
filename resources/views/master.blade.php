@@ -14,7 +14,7 @@
 	{{-- check to see if the user is logged in. will change nav depending on login status--}}
 		@if(\Auth::check())
 		<li><a href="/logout">Logout</a></li>
-		<li><a href="/profile">Profile</a></li>
+		<li><a href="/account">Profile</a></li>
 		@else
 		<li><a href="/register">Register with us</a></li>
 		<li><a href="/login">Login</a></li>
