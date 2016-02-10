@@ -34,6 +34,8 @@
 	<input type="submit" value="Register">
 </form>
 
+{{-- display errors --}}
+
 @if(count($errors))
 <ul>
 	@foreach($errors->all() as $error)
