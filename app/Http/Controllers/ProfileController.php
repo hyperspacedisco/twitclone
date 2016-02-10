@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Tweet;
+use App\User;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -34,5 +35,12 @@ class ProfileController extends Controller
     	$newTweet->save();
 
     	return redirect('profile');
+    }
+
+    public function show($username){
+
+    	$user = User::where('username', '=', $username )->firstOrFail();
+
+    	return view('profile.show', compact('user'));
     }
 }
