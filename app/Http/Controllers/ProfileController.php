@@ -8,7 +8,7 @@ use App\Tweet;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class AccountController extends Controller
+class ProfileController extends Controller
 {
     //
     public function index() {
@@ -17,7 +17,7 @@ class AccountController extends Controller
     	$totalTweets = \Auth::user()->tweets()->count();
 
 
-    	return view('account/index', compact('totalTweets'));
+    	return view('profile/index', compact('totalTweets'));
     }
 
     public function newTweet(Request $request) {
@@ -33,6 +33,6 @@ class AccountController extends Controller
 
     	$newTweet->save();
 
-    	return redirect('account');
+    	return redirect('profile');
     }
 }
