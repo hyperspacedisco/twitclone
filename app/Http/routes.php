@@ -11,19 +11,19 @@
 |
 */
 
-Route::get('/', 'HomeController@index')->middleware('web');
+Route::get('/', 'HomeController@index');
 
-Route::get('/contact', 'ContactController@index')->middleware('web');
 
-Route::get('/register', 'Auth\AuthController@getRegister')->middleware('web');
-Route::post('/register', 'Auth\AuthController@postRegister')->middleware('web');
 
-Route::get('/logout', 'Auth\AuthController@logout')->middleware('web');
 
-Route::get('/login', 'Auth\AuthController@getLogin')->middleware('web');
-Route::post('/login', 'Auth\AuthController@postLogin')->middleware('web');
 
-Route::get('/profile', 'ProfileController@index')->middleware(['web', 'auth']);
+
+
+
+
+
+
+
 
 
 
@@ -43,4 +43,11 @@ Route::group(['middleware' => ['web']], function () {
     //
     Route::get('/profile/{username}', 'ProfileController@show');
     Route::post('profile/new-tweet', 'ProfileController@newTweet');
+    Route::get('/profile', 'ProfileController@index');
+    Route::post('/login', 'Auth\AuthController@postLogin');
+    Route::get('/login', 'Auth\AuthController@getLogin');
+    Route::get('/logout', 'Auth\AuthController@logout');
+    Route::post('/register', 'Auth\AuthController@postRegister');
+    Route::get('/register', 'Auth\AuthController@getRegister');
+    Route::get('/contact', 'ContactController@index');
 });
