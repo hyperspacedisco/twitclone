@@ -32,6 +32,13 @@
 		<p><small>Posted: {{ $tweet->created_at }} by {{ $tweet->user->name }}</small></p>
 		<p><small>{{ $tweet->likes }} likes.</small></p>
 
+		{{-- delete tweet if logged in --}}
+		@if( \Auth::check() && $tweet->user->id == \Auth::user()->id )
+
+			<a href="/profile/delete-tweet/{{ $tweet->id }}">Delete</a>
+
+		@endif
+
 		{{-- show associated comments --}}
 		<h4>Comments: </h4>
 
@@ -51,6 +58,7 @@
 			{{-- if not logged in --}}
 				<p><small>Sign in to comment on this Tweet</small></p>
 			@endif
+
 
 			{{-- if no comments --}}
 			@if($tweet->comments->count() == 0)
