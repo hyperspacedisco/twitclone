@@ -22,11 +22,30 @@
 {{-- show tweets --}}
 @foreach( $userPosts as $tweet)
 
-<article class="tweet">
-	<p>{{ $tweet->content }}</p>
-	<p><small>Posted: {{ $tweet->created_at }} by {{ $tweet->user->name }}</small></p>
-	<p><small>{{ $tweet->likes }} likes.</small></p>
-	<hr />
+	<article class="tweet">
+		<hr />
+		<p>{{ $tweet->content }}</p>
+		<p><small>Posted: {{ $tweet->created_at }} by {{ $tweet->user->name }}</small></p>
+		<p><small>{{ $tweet->likes }} likes.</small></p>
+
+		{{-- show associated comments --}}
+		<h4>Comments: </h4>
+
+			@if($tweet->comments->count() == 0)
+
+				<article class="comment">
+					<p><em>Be the first to reply to this tweet!</em></p>
+				</article>
+
+			@else
+				@foreach($tweet->comments as $comment)
+					<article class="comment">
+						<p><em>{{$comment->user->name}}</em>: {{ $comment->content }}</p>
+					</article>
+				@endforeach
+			@endif
+
+		<hr />
 </article>
 
 @endforeach
