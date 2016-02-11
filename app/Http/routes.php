@@ -11,11 +11,11 @@
 |
 */
 
+Route::post('/profile/new-comment', 'ProfileController@newComment')->middleware(['web', 'auth']);
 
+Route::post('profile/new-tweet', 'ProfileController@newTweet')->middleware(['web','auth']);
 
-
-
-
+   Route::post('/login', 'Auth\AuthController@postLogin')->middleware(['web','auth']);
 
 
 
@@ -40,12 +40,14 @@
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+
+	
+
     Route::get('/profile/{username}', 'ProfileController@show');
-    Route::post('profile/new-tweet', 'ProfileController@newTweet');
+    
     Route::get('/profile', 'ProfileController@index');
 
-    Route::post('/login', 'Auth\AuthController@postLogin');
+ 
     Route::get('/login', 'Auth\AuthController@getLogin');
 
     Route::get('/logout', 'Auth\AuthController@logout');

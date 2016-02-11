@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tweet;
 use App\User;
+use App\Comment;
+
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -45,5 +47,23 @@ class ProfileController extends Controller
 
 
     	return view('profile.show', compact('user', 'userPosts'));
+    }
+
+    public function newComment(Request $request) {
+    	$this->validate($request, [
+    			'comment'=>'required|min:2|max:140',
+    			'tweet_id'=>'required|exists:tweets,id'
+    		]);
+
+    	$comment = new Comment();
+
+    	$comment->content = $request->comment;
+    	$comment->user_id = \Auth::user()->id;
+    	$comment->tweet_id = $request->tweet_id;
+
+    	$comment->save();
+
+// redirects user back to page.
+    	return back();
     }
 }

@@ -19,6 +19,10 @@
 	</ul>
 </header>
 
+@if(count($errors)) 
+	COMMENT FORM INVALID
+@endif
+
 {{-- show tweets --}}
 @foreach( $userPosts as $tweet)
 
@@ -31,6 +35,24 @@
 		{{-- show associated comments --}}
 		<h4>Comments: </h4>
 
+		{{--  create comment if logged in--}}
+			@if (\Auth::check() )
+				<form action="/profile/new-comment" method="post">
+					{!! csrf_field() !!}
+
+					<input type="hidden" name="tweet_id" value="{{ $tweet->id }}">
+
+					<label for="comment">Reply to tweet: </label><br />
+					<textarea name="comment" id="comment" cols="50" rows="5"></textarea>
+
+					<input type="submit" value="reply">
+				</form>
+			@else
+			{{-- if not logged in --}}
+				<p><small>Sign in to comment on this Tweet</small></p>
+			@endif
+
+			{{-- if no comments --}}
 			@if($tweet->comments->count() == 0)
 
 				<article class="comment">
