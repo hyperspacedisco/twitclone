@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Tweet;
 use App\User;
+use App\Tag;
 use App\Comment;
 use Intervention\Image\ImageManager;
 
@@ -36,6 +37,31 @@ class ProfileController extends Controller
     	$newTweet->user_id = \Auth::user()->id;
 
     	$newTweet->save();
+
+    	$tags = explode(' ', $request->tags);
+
+    	$tagsFormatted = [];
+
+    	foreach ($tags as $tag ) {
+    		
+    		//clean up newly created tags array.
+    		if (trim($tag)) {
+
+    			$tagsFormatted[] = strtolower(trim($tag));
+    		}
+    	}
+
+    	//loop over each tag
+
+    	foreach ($tagsFormatted as $tag ) {
+    		//loop over each formatted tag and grab the first matching result or add new tag to db
+    		$theTag = Tag::firstOrCreate(['name' => $tag]);
+
+    		$allTagIds[] = $theTag->id;
+
+    	}
+
+    	$newTweet->tags()->attach($allTagIds);
 
     	return redirect('profile');
     }

@@ -39,6 +39,10 @@
 
 		@endif
 
+		@foreach($tweet->tags as $tag)
+			<strong>{{ $tag->name }}</strong>
+		@endforeach
+
 		{{-- show associated comments --}}
 		<h4>Comments: </h4>
 

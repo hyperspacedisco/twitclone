@@ -34,6 +34,10 @@
 		<label for="content">Tweet: </label>
 		<textarea id="content" name="content" cols="30" rows="10">{{ old('content') }}</textarea>
 	</div>
+	<div>
+		<label for="tags">Tags: </label>
+		<textarea name="tags" id="tags" placeholder="#web #banana">{{ old('tags') }}</textarea>
+	</div>
 	<input type="submit" value="Create Tweet">
 
 </form>
