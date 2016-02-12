@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Routes File
@@ -10,26 +9,21 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('/', 'HomeController@index')->middleware('web');
+Route::get('contact', 'ContactController@index')->middleware('web');
+Route::get('register', 'Auth\AuthController@getRegister')->middleware('web');
+Route::post('register', 'Auth\AuthController@postRegister')->middleware('web');
+Route::get('logout', 'Auth\AuthController@logout')->middleware('web');
+Route::get('login', 'Auth\AuthController@getLogin')->middleware('web');
+Route::post('login', 'Auth\AuthController@postLogin')->middleware('web');
+Route::get('profile', 'ProfileController@index')->middleware(['web', 'auth']);
+Route::post('profile/new-tweet', 'ProfileController@newTweet')->middleware(['web', 'auth']);
+Route::get('profile/{username}', 'ProfileController@show')->middleware('web');
+Route::post('profile/new-comment', 'ProfileController@newComment')->middleware(['web', 'auth']);
+Route::get('profile/delete-tweet/{id}', 'ProfileController@deleteTweet')->middleware(['web', 'auth']);
+Route::get('profile/delete-tweet/{id}/confirm', 'ProfileController@destroyTweet')->middleware(['web', 'auth']);
 
-Route::post('/profile/new-comment', 'ProfileController@newComment')->middleware(['web', 'auth']);
-
-Route::post('profile/new-tweet', 'ProfileController@newTweet')->middleware(['web','auth']);
-
-Route::post('/login', 'Auth\AuthController@postLogin')->middleware(['web','auth']);
-
-Route::get('/profile/delete-tweet/{id}/confirm', 'ProfileController@destroyTweet')->middleware(['web', 'auth']);
-
-
-
-
-
-
-
-
-
-
-
-
+Route::post('profile/new-profile-image', 'ProfileController@newProfileImage')->middleware(['web', 'auth']);
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -40,26 +34,6 @@ Route::get('/profile/delete-tweet/{id}/confirm', 'ProfileController@destroyTweet
 | kernel and includes session state, CSRF protection, and more.
 |
 */
-
 Route::group(['middleware' => ['web']], function () {
-
-
-
-	Route::get('/profile/delete-tweet/{id}', "ProfileController@deleteTweet")->middleware('auth');
-
-    Route::get('/profile/{username}', 'ProfileController@show');
-    
-    Route::get('/profile', 'ProfileController@index');
-
- 
-    Route::get('/login', 'Auth\AuthController@getLogin');
-
-    Route::get('/logout', 'Auth\AuthController@logout');
-
-    Route::post('/register', 'Auth\AuthController@postRegister');
-    Route::get('/register', 'Auth\AuthController@getRegister');
-
-    Route::get('/contact', 'ContactController@index');
-
-    Route::get('/', 'HomeController@index');
+    //
 });

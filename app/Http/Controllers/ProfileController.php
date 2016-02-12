@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Tweet;
 use App\User;
 use App\Comment;
+use Intervention\Image\ImageManager;
 
 
 use App\Http\Requests;
@@ -88,5 +89,29 @@ class ProfileController extends Controller
 
     	return redirect('profile/'.$tweet->user->username);
     
+    }
+
+    public function newProfileImage(Request $request ) {
+    	$this->validate($request, [
+    			'photo' => 'required|image'
+    		]);
+
+    	$manager = new ImageManager;
+
+    	//make a temporary copy of submitted file and save it as a profile image using intervention image.
+    	$profileImage = $manager->make($request->photo);
+
+    	$profileImage->resize(240, null, function ($constraint) {
+    		$constraint->aspectRatio();
+		});
+
+		$profileImage->save('profiles/'.\Auth::user()->id.'.jpg', 90);
+
+		//save filename in user's table
+		$user = User::find( \Auth::user()->id );
+		$user->profileImage = \Auth::user()->id.'.jpg';
+		$user->save();
+
+		return redirect('profile/'.$user->username);
     }
 }

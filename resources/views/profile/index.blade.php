@@ -13,6 +13,18 @@
 	<li>{{ $totalTweets }} total tweets.</li>
 </ul>
 
+
+
+<h3>Add a profile image</h3>
+
+<form action="/profile/new-profile-image" method="post" enctype="multipart/form-data" >
+	{!! csrf_field() !!}
+	<input type="file" name="photo" id="photo">
+	<input type="submit" value="submit file">
+</form>
+
+
+
 <h3>Write a new Tweet</h3>
 
 <form action=" /profile/new-tweet" method="post">
